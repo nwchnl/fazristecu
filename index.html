@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazri Official - Pesan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            font-family: 'Metal Mania', system-ui;
+            overflow: hidden;
+        }
+
+        #start-btn {
+            padding: 15px 35px;
+            font-family: 'Metal Mania', cursive;
+            font-size: 1.8rem;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            z-index: 10;
+        }
+
+        #start-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .text-container {
+            text-align: center;
+            max-width: 90%;
+            text-transform: uppercase;
+        }
+
+        #typing-output {
+            font-size: 3rem;
+            line-height: 1.3;
+            letter-spacing: 3px;
+            white-space: pre-wrap;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 2.5rem;
+            background-color: white;
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        @media (max-width: 600px) {
+            #typing-output { font-size: 1.6rem; }
+            .cursor { height: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="start-btn">LIHAT PESAN</button>
+
+    <div class="text-container">
+        <span id="typing-output"></span><span id="cursor-element"></span>
+    </div>
+
+    <audio id="my-audio" src="TikSave.io_7579428911768030485.mp3" preload="auto"></audio>
+
+    <script>
+        const text = "INI AKUN RESMI FAZRI\nDAN PESAN BUAT LU\nJANGAN KEPO PUKI\nMUKA LU KAYA KONTOL";
+        const output = document.getElementById('typing-output');
+        const cursor = document.getElementById('cursor-element');
+        const sound = document.getElementById('my-audio');
+        const btn = document.getElementById('start-btn');
+        
+        let i = 0;
+
+        function type() {
+            if (i < text.length) {
+                cursor.className = "cursor"; // Aktifkan kursor
+                
+                if (text.charAt(i) === "\n") {
+                    output.innerHTML += "<br>";
+                } else {
+                    output.innerHTML += text.charAt(i);
+                }
+
+                i++;
+                // Mengatur kecepatan ketik (120ms per karakter)
+                setTimeout(type, 120); 
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            btn.style.display = 'none'; // Sembunyikan tombol
+            sound.play(); // Putar audio sekali saja dari awal
+            type(); // Mulai animasi ketikan
+        });
+    </script>
+
+</body>
+</html>
